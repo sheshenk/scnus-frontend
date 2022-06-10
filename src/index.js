@@ -7,7 +7,8 @@ import App from './App';
 import apolloClient from './services/apolloClientProvider';
 
 const theme = {
-	fontFamily: 'Inter',
+	fontFamily: 'Encode Sans',
+	headings: { fontFamily: 'Encode Sans'},
 	primaryColor: 'orange'
 }
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,7 +16,7 @@ root.render(
 	<React.StrictMode>
 		<ApolloProvider client={apolloClient}>
 			<BrowserRouter>
-				<MantineProvider theme={theme}>
+				<MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
 					<App/>
 				</MantineProvider>
 			</BrowserRouter>
