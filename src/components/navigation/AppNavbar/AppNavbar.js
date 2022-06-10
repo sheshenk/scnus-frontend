@@ -1,5 +1,5 @@
 import { Avatar, Group, MediaQuery, Navbar, Stack, Text, Title } from "@mantine/core";
-import { Dashboard, History, ShoppingCart, User, Wallet } from "tabler-icons-react";
+import { navbarObjects } from "../../../utils/navbarObjects";
 import AppNavbarButton from "../AppNavbarButton/AppNavbarButton";
 
 export default function AppNavbar({hidden}) {
@@ -21,11 +21,7 @@ export default function AppNavbar({hidden}) {
 			</Navbar.Section>
 			<Navbar.Section p='xs' grow>
 				<Stack spacing={0}>
-					<AppNavbarButton title="Dashboard" icon={<Dashboard/>} color='red'/>
-					<AppNavbarButton title="Tokens" icon={<Wallet/>} color='pink'/>
-					<AppNavbarButton title="Customers" icon={<User/>} color='grape'/>
-					<AppNavbarButton title="Merchants" icon={<ShoppingCart/>} color='teal'/>
-					<AppNavbarButton title="Transactions" icon={<History/>} color='gray'/>
+					{navbarObjects.map(o => <AppNavbarButton key={o.title} {...o}/>)}
 				</Stack>
 			</Navbar.Section>
 			

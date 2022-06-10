@@ -1,4 +1,5 @@
-import { ActionIcon, Burger, Group, Header, MediaQuery, Title } from "@mantine/core";
+import { ActionIcon, Group, Header, MediaQuery, Title } from "@mantine/core";
+import { Menu2 } from "tabler-icons-react";
 
 export default function AppHeader({setOpened}) {
 	return (
@@ -7,7 +8,7 @@ export default function AppHeader({setOpened}) {
 				<Group position="apart">
 					<Title order={2}>ScaNUS</Title>
 					<ActionIcon onClick={() => setOpened(opened => !opened)}>
-						<Burger/>
+						<Menu2/>
 					</ActionIcon>
 				</Group>
 			</Header>
