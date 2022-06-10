@@ -1,38 +1,40 @@
-import { Button, Group, SegmentedControl, Space, Stack, TextInput, Title } from "@mantine/core";
-import { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { Button, Group, Image, SegmentedControl, Space, Stack, TextInput, Title } from "@mantine/core";
+import { useForm } from "@mantine/hooks";
+import { useEffect, useState } from "react";
 import { Plus } from "tabler-icons-react";
 import TokenGrid from "../../components/tokens/TokenGrid/TokenGrid";
+import TokenModal from "../../components/tokens/TokenModal/TokenModal";
+import { GET_ALL_TOKENS } from "../../queries/tokens";
 
-const nfts = [
-	{
-		name: "Mastercard",
-		imageUrl: 'https://picsum.photos/200',
-		description: 'NFT for Mastercard. Sample description.',
-		numOwners: 10
-	},
-	{
-		name: "Ethereum",
-		imageUrl: 'https://picsum.photos/300',
-		description: 'NFT for Ethereum. Sample description.',
-		numOwners: 15
-	},
-	{
-		name: "Fintech Lab",
-		imageUrl: 'https://picsum.photos/400',
-		description: 'NFT for Fintech Lab. Sample description.',
-		numOwners: 9
-	},
-	{
-		name: "Ripple",
-		imageUrl: 'https://picsum.photos/500',
-		description: 'NFT for Ripple. Sample description.',
-		numOwners: 5
-	},
-]
+const emptyToken = {_id: null, name: '', description: '', imageURL: '', link: ''}
 
 export default function TokensPage() {
 
+	const [nfts, setNfts] = useState([])
 	const [filteredNfts, setFilteredNfts] = useState(nfts)
+	const { loading, error, data } = useQuery(GET_ALL_TOKENS)
+	const [viewMode, setViewMode] = useState('grid')
+	const [currentToken, setCurrentToken] = useState(null)
+
+	const form = useForm({
+		initialValues: emptyToken
+	})
+
+	useEffect(() => {
+		if (data === undefined) return
+		const tokens = data.getAllNFTs
+		if (tokens) {
+			setNfts(tokens.map(t => ({
+				...t, 
+				image: <Image src={t.imageURL} style={{width:'100%'}} fit='cover'/> 
+			})))
+		}
+	}, [loading, error, data])
+
+	useEffect(() => {
+		setFilteredNfts(nfts)
+	}, [nfts])
 
 	const handleFilterChange = (event) => {
 		const currSearch = event.currentTarget.value.trim().toLowerCase()
@@ -40,16 +42,36 @@ export default function TokensPage() {
 		setFilteredNfts(newFiltered)
 	}
 
+	const callbacks = {
+		create: (nft) => setNfts([...nfts, {...nft, image: <Image src={nft.imageURL} style={{width:'100%'}} fit='cover'/> }]),
+		update: (nft) => setNfts(nfts.map(n => nft._id === n._id ? ({...nft, image: <Image src={nft.imageURL} style={{width:'100%'}} fit='cover'/>}) : n)),
+		delete: (nft) => setNfts(nfts.filter(n => n._id !== nft._id))
+	}
+
+	const handleNewTokenClick = () => {
+		setCurrentToken(emptyToken)
+		form.setValues(emptyToken)
+	}
+
+	const handleTokenClick = (nft) => () => {
+		setCurrentToken(nft)
+		form.setValues(nft)
+	}
+
 	return (
 		<Stack p='xl'>
-			<Title>Tokens</Title>
+			<TokenModal opened={!!currentToken} form={form} nft={currentToken} close={() => setCurrentToken(null)} callbacks={callbacks}/>
+			<Group>
+				<Title>Tokens</Title>
+				{!loading && <Title style={{color:'ButtonFace'}}>{nfts.length}</Title>}
+			</Group>
 			<Group>
 				<TextInput size="md" variant='filled' placeholder="Search for token" onChange={handleFilterChange}/>
-				<SegmentedControl data={[{ label: 'List', value: 'list' }, { label: 'Grid', value: 'grid' }]} size='md'/>
-				<Button size="md" leftIcon={<Plus/>} pl='xs' pr='sm'>Add New</Button>
+				<SegmentedControl value={viewMode} onChange={e => setViewMode(e)} data={[{ label: 'List', value: 'list' }, { label: 'Grid', value: 'grid' }]} size='md'/>
+				<Button size="md" leftIcon={<Plus/>} pl='xs' pr='sm' onClick={handleNewTokenClick}>Add New</Button>
 			</Group>
 			<Space/>
-			<TokenGrid nfts={filteredNfts}/>
+			{ viewMode === 'grid' ? <TokenGrid handleTokenClick={handleTokenClick} nfts={filteredNfts}/> : <></>}
 		</Stack>
 	)
 }

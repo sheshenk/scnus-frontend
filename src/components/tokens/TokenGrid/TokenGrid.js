@@ -1,10 +1,10 @@
 import { SimpleGrid } from "@mantine/core";
 import TokenGridItem from "../TokenGridItem/TokenGridItem";
 
-export default function TokenGrid({nfts}) {
+export default function TokenGrid({nfts, handleTokenClick}) {
 	return (
 		<SimpleGrid cols={5}>
-			{nfts.map(nft => <TokenGridItem key={nft.name} nft={nft} onClick={() => console.log(nft.name)}/>)}
+			{nfts.map(nft => <TokenGridItem onClick={handleTokenClick(nft)} key={nft.name} nft={nft}/>)}
 		</SimpleGrid>
 	)
 }
