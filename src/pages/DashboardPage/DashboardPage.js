@@ -5,6 +5,9 @@ export default function DashboardPage() {
 	return (
 		<Stack p='lg'>
 			<Title>Dashboard</Title>
+			<SimpleGrid cols={2}>
+				<NFTSummaryCard/>
+			</SimpleGrid>
 		</Stack>
 	)
 }
