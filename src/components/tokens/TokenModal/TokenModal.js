@@ -6,9 +6,6 @@ export default function TokenModal({opened, form, nft, close, callbacks}) {
 	
 	const modalTitle = form.values.name === '' ? nft?.name ? nft?.name : 'Create New NFT' : form.values.name
 
-
-	console.log(form.values)
-
 	const [createToken] = useMutation(CREATE_NEW_TOKEN, {
 		variables: {...form.values, event: 'NUS Fintech Lab Launch'},
 		onCompleted: ({ createNFT }) => {
