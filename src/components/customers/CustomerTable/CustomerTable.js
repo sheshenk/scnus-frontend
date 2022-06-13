@@ -25,7 +25,7 @@ function CustomerTable() {
 					</tr>
 				</thead>
 				<tbody>
-					{customers.map(c => (
+					{customers.slice(10 * (currentPage - 1), 10 * currentPage).map(c => (
 						<tr>
 							<td>{c.name}</td>
 							<td>{c.phone}</td>
@@ -35,7 +35,7 @@ function CustomerTable() {
 					))}
 				</tbody>
 			</Table>
-			<Pagination total={Math.ceil(customers.length / 10)}/>
+			<Pagination total={Math.ceil(customers.length / 10)} page={currentPage} onChange={v => setCurrentPage(v)}/>
 		</>
 		
 	 )
