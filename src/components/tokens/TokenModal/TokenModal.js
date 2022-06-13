@@ -8,8 +8,8 @@ export default function TokenModal({opened, form, nft, close, callbacks}) {
 
 	const [createToken] = useMutation(CREATE_NEW_TOKEN, {
 		variables: {...form.values, event: 'NUS Fintech Lab Launch'},
-		onCompleted: ({ createNFT }) => {
-			if (createNFT.response) {
+		onCompleted: ({ createToken }) => {
+			if (createToken.response) {
 				callbacks.create(form.values)
 				close()
 			} else {
@@ -20,8 +20,8 @@ export default function TokenModal({opened, form, nft, close, callbacks}) {
 
 	const [updateToken] = useMutation(UPDATE_TOKEN, {
 		variables: form.values,
-		onCompleted: ({ updateNFTDetails }) => {
-			if (updateNFTDetails.response) {
+		onCompleted: ({ updateToken }) => {
+			if (updateToken.response) {
 				callbacks.update(form.values)
 				close()
 			} else {
@@ -32,8 +32,8 @@ export default function TokenModal({opened, form, nft, close, callbacks}) {
 
 	const [deleteToken] = useMutation(DELETE_TOKEN, {
 		variables: form.values,
-		onCompleted: ({ deleteNFT }) => {
-			if (deleteNFT.response) {
+		onCompleted: ({ deleteToken }) => {
+			if (deleteToken.response) {
 				callbacks.delete(form.values)
 				close()
 			} else {

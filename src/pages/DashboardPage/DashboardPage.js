@@ -13,7 +13,7 @@ export default function DashboardPage() {
 		totalRedemptions: 0,
 		totalMerchants: 0,
 		totalDiscount: 0,
-		getAllNFTs: []
+		readTokens: []
 	})
 
 	const { loading, error, data } = useQuery(DASHBOARD_QUERY)

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Plus } from "tabler-icons-react";
 import TokenGrid from "../../components/tokens/TokenGrid/TokenGrid";
 import TokenModal from "../../components/tokens/TokenModal/TokenModal";
-import { GET_ALL_TOKENS } from "../../queries/tokens";
+import { READ_TOKENS } from "../../queries/tokens";
 
 const emptyToken = {_id: null, name: '', description: '', imageURL: '', link: ''}
 
@@ -13,7 +13,7 @@ export default function TokensPage() {
 
 	const [nfts, setNfts] = useState([])
 	const [filteredNfts, setFilteredNfts] = useState(nfts)
-	const { loading, error, data } = useQuery(GET_ALL_TOKENS)
+	const { loading, error, data } = useQuery(READ_TOKENS)
 	const [viewMode, setViewMode] = useState('grid')
 	const [currentToken, setCurrentToken] = useState(null)
 
@@ -23,7 +23,7 @@ export default function TokensPage() {
 
 	useEffect(() => {
 		if (data === undefined) return
-		const tokens = data.getAllNFTs
+		const tokens = data.readTokens
 		if (tokens) {
 			setNfts(tokens.map(t => ({
 				...t, 

@@ -1,7 +1,7 @@
 import { Avatar, Card, Group, Stack, Text, Title, Tooltip } from "@mantine/core";
 
-export default function NFTSummaryCard({getAllNFTs}) {
-	const tokens = [...getAllNFTs]
+export default function NFTSummaryCard({readTokens}) {
+	const tokens = [...readTokens]
 	return (
 		<Card withBorder shadow='sm' p='xl'>
 			<Stack>

@@ -6,10 +6,10 @@ export const DASHBOARD_QUERY = gql`
 		totalRedemptions
 		totalMerchants
 		totalDiscount
-		getAllNFTs {
+		readTokens {
 			name
 			imageURL
-			totalOwners
+			ownerCount
 		}
 	}
 `
