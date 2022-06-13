@@ -1,1 +1,1 @@
-export const AUTH_TOKEN = 'token_name'
+export const AUTH_TOKEN = 'scanus-token'
