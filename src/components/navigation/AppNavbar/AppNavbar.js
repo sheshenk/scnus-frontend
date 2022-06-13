@@ -2,7 +2,7 @@ import { Avatar, Group, MediaQuery, Navbar, Stack, Text, Title } from "@mantine/
 import { navbarObjects } from "../../../utils/navbarObjects";
 import AppNavbarButton from "../AppNavbarButton/AppNavbarButton";
 
-export default function AppNavbar({hidden}) {
+export default function AppNavbar({user, hidden}) {
 	return (
 		<Navbar hiddenBreakpoint='sm' hidden={hidden} width={{base: 280}}>
 			<MediaQuery smallerThan='sm' styles={{display:'none'}}>
@@ -12,10 +12,10 @@ export default function AppNavbar({hidden}) {
 			</MediaQuery>
 			<Navbar.Section p='lg' style={{borderBottom: `1px solid #efefef`}}>
 				<Group>
-					<Avatar color='orange' size={40}>A</Avatar>
+					<Avatar color='orange' size={40}>{user.name.charAt(0)}</Avatar>
 					<div>
-						<Text>Admin</Text>
-						<Text size='xs' color='gray'>90511444</Text>
+						<Text>{user.name}</Text>
+						<Text size='xs' color='gray'>{user.phone}</Text>
 					</div>
 				</Group>
 			</Navbar.Section>
