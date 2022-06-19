@@ -38,7 +38,7 @@ function TransactionTable() {
                 <td>{c.merchantId}</td>
                 <td>{c.customerId}</td>
                 <td>{c.amount}</td>
-                <td>{c.discount}</td>
+                <td>{c.discount.toFixed(2)}</td>
                 <td>{c.time}</td>
               </tr>
             ))}

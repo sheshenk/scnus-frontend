@@ -46,7 +46,7 @@ export default function TokensPage() {
         tokens.map((t) => ({
           ...t,
           image: (
-            <Image src={t.imageURL} style={{ width: "100%" }} fit="cover" />
+            <Image src={t.imageURL} fit='cover' />
           ),
         }))
       );
