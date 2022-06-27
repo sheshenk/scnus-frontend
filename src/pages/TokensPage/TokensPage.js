@@ -37,7 +37,7 @@ export default function TokensPage() {
   const form = useForm({
     initialValues: emptyToken,
   });
-
+  
   useEffect(() => {
     if (data === undefined) return;
     const tokens = data.readTokens;
@@ -109,7 +109,7 @@ export default function TokensPage() {
   const handleDownloadAllTokens = () => {
     const canvans = document.getElementsByClassName("qrcode");
     if (!canvans.length) {
-      return alert("elements is empty!");
+      return alert("No tokens added");
     }
     const zip = new JSZip();
 
