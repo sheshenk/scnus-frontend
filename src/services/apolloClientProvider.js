@@ -2,6 +2,9 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { AUTH_TOKEN } from '../utils/authToken'
 
+const loc_uri = "http://localhost:4000/graphql"
+const uri = "https://scnus-server.herokuapp.com"
+
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem(AUTH_TOKEN)
 	return {
@@ -13,7 +16,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const httpLink = new HttpLink({
-	uri: "http://localhost:4000/graphql"
+	uri: uri
 })
 
 const apolloClient = new ApolloClient({
